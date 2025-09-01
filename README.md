@@ -1,2 +1,154 @@
 # Sahayata
 https://pratiks-1107.github.io/Sahayata/
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sahayata — Emergency Resource Finder</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class'
+    };
+  </script>
+</head>
+<body class="bg-white dark:bg-gray-900 text-gray-800 dark:text-gray-100 transition duration-300">
+
+  <!-- Navbar -->
+  <header class="bg-red-600 dark:bg-red-800 text-white p-4 flex justify-between items-center">
+    <h1 class="text-2xl font-bold">Sahayata</h1>
+    <div>
+      <button id="darkToggle" class="bg-white dark:bg-gray-700 text-red-600 dark:text-white px-4 py-2 rounded hover:bg-gray-200 dark:hover:bg-gray-600 transition">
+        Toggle Dark Mode
+      </button>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="text-center py-20 px-4">
+    <h2 class="text-4xl font-bold mb-4">Your Lifeline in Local Emergencies</h2>
+    <p class="text-lg mb-6 max-w-2xl mx-auto">
+      Sahayata helps you instantly find local help — ambulances, doctors, shelters, and blood banks — when every second matters.
+    </p>
+    <button id="modalOpenBtn" class="bg-red-600 text-white px-6 py-3 rounded-lg hover:bg-red-700 transition">
+      How It Works
+    </button>
+    <section class="text-center py-10 px-4">
+  <h2 class="text-2xl font-semibold mb-4">Find Emergency Help Near You</h2>
+  <button onclick="getUserLocation()" class="bg-green-600 text-white px-6 py-3 rounded hover:bg-green-700">
+    Share My Location
+  </button>
+
+  <div id="helpOptions" class="mt-6 hidden">
+    <label for="service" class="block mb-2 text-lg font-medium">What do you need?</label>
+    <select id="service" class="p-2 rounded border bg-white text-black dark:bg-gray-800 dark:text-white">
+      <option value="hospital">Nearby Hospitals</option>
+      <option value="hospitals">Blood Banks</option>
+      <option value="shelter">Safe Houses / Shelters</option>
+    </select>
+    <button onclick="showResults()" class="ml-4 bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
+      Search
+    </button>
+  </div>
+</section>
+
+  </section>
+
+  <!-- Modal -->
+  <div id="modal" class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center z-50">
+    <div class="bg-white dark:bg-gray-800 p-6 rounded-lg w-11/12 max-w-md shadow-xl relative">
+      <h3 class="text-2xl font-bold mb-2 text-red-600 dark:text-red-400">About Sahayata</h3>
+      <p class="mb-4">
+        In sudden crises — like road accidents, floods, or medical emergencies — Sahayata connects you instantly with hyperlocal services such as:
+      </p>
+      <ul class="list-disc list-inside mb-4 space-y-1">
+        <li>Nearby ambulances & emergency vehicles</li>
+        <li>On-call doctors and clinics</li>
+        <li>Live shelter locations during disasters</li>
+        <li>Available blood banks and donation centers</li>
+      </ul>
+      <p>Your safety. Your community. One platform.</p>
+      <button id="modalCloseBtn" class="absolute top-2 right-2 text-gray-600 hover:text-red-600 text-xl font-bold">&times;</button>
+    </div>
+  </div>
+  <section class="text-center py-6">
+  <h3 class="text-xl font-semibold mb-4">Emergency Helpline</h3>
+  <a href="tel:112">
+    <button class="px-6 py-3 rounded transition font-medium 
+                   bg-red-600 text-white hover:bg-red-700 
+                   dark:bg-red-700 dark:hover:bg-red-800 dark:text-white">
+      📞 Call Emergency Ambulance (112)
+    </button>
+  </a>
+</section>
+
+  <!-- Footer -->
+  <footer class="bg-gray-200 dark:bg-gray-800 text-center p-4 mt-20">
+    <p>&copy; 2025 Sahayata. Built for those who care.</p>
+  </footer>
+
+  <!-- JavaScript -->
+  <script>
+    const darkToggle = document.getElementById('darkToggle');
+    const modal = document.getElementById('modal');
+    const modalOpenBtn = document.getElementById('modalOpenBtn');
+    const modalCloseBtn = document.getElementById('modalCloseBtn');
+
+    darkToggle.addEventListener('click', () => {
+      document.documentElement.classList.toggle('dark');
+    });
+
+    modalOpenBtn.addEventListener('click', () => {
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
+    });
+
+    modalCloseBtn.addEventListener('click', () => {
+      modal.classList.add('hidden');
+    });
+
+    modal.addEventListener('click', (e) => {
+      if (e.target === modal) {
+        modal.classList.add('hidden');
+      }
+    });
+  </script>
+  <script>
+   let userLat = null;
+   let userLon = null;
+
+   function getUserLocation() {
+    if (navigator.geolocation) {
+     navigator.geolocation.getCurrentPosition(
+      (position) => {
+        userLat = position.coords.latitude;
+        userLon = position.coords.longitude;
+        document.getElementById("helpOptions").classList.remove("hidden");
+      },
+      (error) => {
+        alert("Location access denied. We can't find nearby help without it.");
+      }
+      );
+    } else {
+    alert("Geolocation is not supported by your browser.");
+   }
+   }
+
+  function showResults() {
+  const service = document.getElementById("service").value;
+  if (userLat && userLon) {
+    const query = encodeURIComponent(service);
+    const mapUrl = `https://www.google.com/maps/search/${query}/@${userLat},${userLon},14z`;
+    window.open(mapUrl, '_blank');
+  } else {
+    alert("Please share your location first.");
+  }
+ }
+</script>
+</body>
+</html>
+
+
