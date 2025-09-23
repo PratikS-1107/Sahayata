@@ -15,14 +15,20 @@
 <body class="bg-white dark:bg-gray-900 text-gray-800 dark:text-gray-100 transition duration-300">
 
   <!-- Navbar -->
-  <header class="bg-red-600 dark:bg-red-800 text-white p-4 flex justify-between items-center">
+ <header class="bg-red-600 dark:bg-red-800 text-white p-4 flex justify-between items-center">
+  <!-- Left side: logo + title -->
+  <div class="flex items-center space-x-3">
+    <img src="assets/logo.png" alt="Logo" class="w-10 h-10 rounded">
     <h1 class="text-2xl font-bold">Sahayata</h1>
-    <div>
-      <button id="darkToggle" class="bg-white dark:bg-gray-700 text-red-600 dark:text-white px-4 py-2 rounded hover:bg-gray-200 dark:hover:bg-gray-600 transition">
-        Toggle Dark Mode
-      </button>
-    </div>
-  </header>
+  </div>
+
+  <!-- Right side: dark mode toggle -->
+  <div>
+    <button id="darkToggle" class="bg-white dark:bg-gray-700 text-red-600 dark:text-white px-4 py-2 rounded hover:bg-gray-200 dark:hover:bg-gray-600 transition">
+      Toggle Dark Mode
+    </button>
+  </div>
+</header>
 
   <!-- Hero Section -->
   <section class="text-center py-20 px-4">
@@ -147,6 +153,7 @@
 </script>
 </body>
 </html>
+
 
 
 
